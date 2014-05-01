@@ -1,4 +1,6 @@
 votes
 =====
 
-A package to vote anythink (like, dislike or even rating)
+A package to vote anything (like, dislike or even rating)
+
+#### Under Development
