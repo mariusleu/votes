@@ -1,7 +1,7 @@
 <?php namespace Softservlet\Votes\Repositories;
 
 use Softservlet\Votes\Voter\VoterInterface;
-use Softservlet\Votest\Votable\VotableInterface;
+use Softservlet\Votes\Votable\VotableInterface;
 use Softservlet\Votes\Vote\VoteInterface;
 
 interface VoteRepositoryInterface
