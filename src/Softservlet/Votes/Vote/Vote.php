@@ -21,7 +21,7 @@ class Vote implements VoteInterface
 		$this->minValue = (float) $minValue;
 		$this->maxValue = (float) $maxValue;
 		$this->value = (float) $value;
-		
+
 		if(!is_numeric($time) && is_string($time)) {
 			$time = strtotime($time);
 		}
