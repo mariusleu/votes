@@ -3,6 +3,8 @@
 use Softservlet\Votes\Repositories\VoteRepositoryInterface;
 use Softservlet\Votes\Vote\Vote;
 use Softservlet\Votes\Repositories\DB\Vote as VoteDB;
+use Softservlet\Votes\Voter\VoterInterface;
+use Softservlet\Votes\Votable\VotableInterface;
 
 class DBVoteRepository implements VoteRepositoryInterface
 {
@@ -28,13 +30,13 @@ class DBVoteRepository implements VoteRepositoryInterface
 	 */
 	public function find($id)
 	{
-		$data = $this->vote->find($id);
+		$data = $this->vote->where('id','=',$id)->first();
 		
 		if(is_null($data)) {
 			return null;
 		}
 		
-		return $this->instance($data->get());
+		return $this->instance($data);
 	}
 	
 	/**
@@ -167,7 +169,7 @@ class DBVoteRepository implements VoteRepositoryInterface
 	//return an Vote instance 
 	protected function instance($vote)
 	{
-		if(is_array($vote)) {
+		if(is_array($vote) || $vote instanceof \IteratorAggregate) {
 			return $this->instanceArray($vote);
 		} elseif($vote instanceof VoteDB) {	
 			return $this->instanceSingle($vote);
@@ -185,13 +187,13 @@ class DBVoteRepository implements VoteRepositoryInterface
 				$vote->votable_name, 
 				$vote->min_value,
 				$vote->max_value, 
-				$vote->v1alue,
+				$vote->value,
 				$vote->created_at
 		);		
 	}	
 
 	//return an array of votes instance by array of models
-	protected function instanceArray(Array $data)
+	protected function instanceArray($data)
 	{
 		$votes = array();
 		
